@@ -1,0 +1,198 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --text-color: white;
+  /*qualquer coisa que tiver o que eu escrevi vai ser white*/
+  --bg-url: url(./assets/bg-mobile.jpg);
+  --stroke-color: rgba(255, 255, 255, 0.50);
+ --surface-color: rgba(255, 255, 155, 0.05);
+ --surface-color-hover:  rgba(0, 0, 0, 0.02);
+ --highlight-color: rgba(255, 255, 255, 0.02);
+ --switch-bg-url: url(./assets/moon-stars.svg)
+}
+
+.light {
+  --text-color: black;
+  --bg-url: url(./assets/bg-mobile-light.jpg);
+  --stroke-color: rgba(0, 0, 0, 0.5);
+ --surface-color: rgba(0, 0, 0, 0.05);
+ --surface-color-hover:  rgba(0, 0, 0, 0.02);
+ --highlight-color: rgba(0, 0, 0, 0.1);
+ --switch-bg-url: url(./assets/sun.svg);
+}
+
+body {
+  background: var(--bg-url) no-repeat top center/cover;
+  height: 100vh;
+}
+
+body * {
+  font-family: 'Inter', sans-serif;
+  color: var(--text-color);
+}
+
+#container {
+  width: 100%;
+  max-width: 588px;
+  margin: 56px auto 0px;
+  padding: 0 24px;
+}
+#profile {
+  text-align: center;
+  padding: 24px;
+}
+#profile img {
+  width: 112px;
+}
+
+#profile p {
+ font-weight: 500;
+ line-height: 24px; /* 150% */
+ margin-top: 8px;
+}
+
+#switch {
+  position: relative;
+  /* é tipo a função "cortar" do ibis, faz com que o objeto de cima só se movimente dentro da área do que tá embaixo*/
+  width: 64px;
+  margin: 4px auto;
+}
+
+#switch button {
+  width: 32px;
+  height: 32px;
+  background: white var(--switch-bg-url) no-repeat center;
+  border: 0;
+  border-radius: 50%;
+  position: absolute;
+  /*coloca os itens um sobre os outros, ou seja, em diferentes camadas*/
+  top: 50%;
+  left: 0;
+  z-index: 1;
+  /*camada/andar*/
+  transform: translateY(-50%);
+  animation: slide-out 0.2s;
+}
+
+.light #switch button {
+  animation: slide-in 0.2s forwards;
+}/* forwards serve para manter a animação no lugar, para ela não voltar para o estágio inicial*/
+
+#switch button:hover {
+  outline: 8px solid var(--highlight-color)
+}
+
+#switch span {
+  display: block;
+  width: 64px;
+  height: 24px;
+  border-radius: 9999px;
+  border: 1px solid var(--stroke-color);
+  background: var(--surface-color);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+ul{ /* pai */
+list-style: none;
+display: flex;
+flex-direction: column;
+gap: 16px;
+/*fiz basicamente a mesma coisa que display block, pois flex deixa em linha e block em coluna. Mas ao deixar flex em coluna eu posso dar um espaço entre eles, o gap*/
+padding: 24px 0;
+
+}
+
+/* filho */
+ul li a {
+  display: flex;
+  justify-content: center;
+  /* ^esse deixa a letra no meio do bloco*/
+
+  align-items: center;
+  padding: 16px 24px;
+  background: var(--surface-color);
+  /*rgba significa red, green, blue and alpha, alpha é transparencia, rgb vai de 0 a 255, quando todos estão na cor máxima fica branco, enquanto alpha vai de 0 a 1*/
+
+  border: 1px solid var(--stroke-color);
+  border-radius: 8px;
+  /*arredondamento de borda*/
+
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  text-decoration: none;
+  /*serve para tirar a linha que fica embaixo do texto*/
+
+  font-weight: 500;
+  /* qualquer font weight acima de 400 é bold, mas é melhor especificar*/
+
+  transition: background 0.2s;
+}
+
+/*pseudo-selector para quando passar o mouse por cima*/
+ul li a:hover {
+  background: var(--surface-color-hover);
+  border: 1.5px solid var(--text-color);
+}
+
+#social-links {
+  display: flex;
+  justify-content: center;
+  padding: 24px 0;
+  font-size: 24px;
+}
+
+#social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+padding: 16px;
+transition: background 0.2s;
+border-radius: 50%;
+/* Isso aí em cima faz uma bolinha perfeita*/
+}
+
+#social-links a:hover {
+  background: var(--highlight-color);
+}
+
+footer {
+  padding: 24px 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* media queries */
+@media (min-width: 700px) {
+  :root {
+    --bg-url: url(./assets/bg-desktop.jpg);
+  }
+
+  .light {
+    --bg-url: url(./assets/bg-desktop-light.jpg);
+  }
+}
+/*isso aí so funciona quando tem a "viewport" no html*/
+
+/*animation*/
+@keyframes slide-in {
+from{
+  left: 0;
+}
+to {
+  left: 50%;
+}
+}
+
+@keyframes slide-out {
+  from {
+    left: 50%;
+  }
+  to {
+    left: 0;
+  }
+}
